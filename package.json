@@ -1,16 +1,49 @@
 {
-  "dependencies": {
-    "@types/jest": "^28.1.6",
-    "@typescript-eslint/eslint-plugin": "^5.31.0",
-    "@typescript-eslint/parser": "^5.31.0",
-    "eslint": "^8.20.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-jest": "^26.7.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "jest": "^28.1.3",
-    "prettier": "^2.7.1",
-    "ts-jest": "^28.0.7",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.7.4"
-  }
+	"name": "@naouchi-okicom2/naouchi-pkg",
+	"version": "0.0.1",
+	"description": "Sample Package",
+	"author": "naouchi",
+	"license": "MIT",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"dependencies": {
+		"typescript": "^4.7.4"
+	},
+	"devDependencies": {
+		"@types/jest": "^28.1.6",
+		"@typescript-eslint/eslint-plugin": "^5.31.0",
+		"@typescript-eslint/parser": "^5.31.0",
+		"eslint": "^8.20.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-jest": "^26.7.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"jest": "^28.1.3",
+		"nock": "^13.2.9",
+		"prettier": "^2.7.1",
+		"ts-jest": "^28.0.7",
+		"ts-node": "^10.9.1"
+	},
+	"scripts": {
+		"build": "tsc",
+		"tsc:type": "tsc --noEmit",
+		"prepublishOnly": "npm run build",
+		"lint": "eslint --ext .ts ./src/",
+		"format": "prettier --write \"./src/**/*.ts\"",
+		"test": "npm run tsc:type && npm run lint && npm run test:jest",
+		"test:jest": "jest"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/naouchi-okicom2/naouchi-pkg.git"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/"
+	},
+	"keywords": [
+		"TypeScript"
+	],
+	"bugs": {
+		"url": "https://github.com/naouchi-okicom2/naouchi-pkg/issues"
+	},
+	"homepage": "https://github.com/naouchi-okicom2/naouchi-pkg#readme"
 }

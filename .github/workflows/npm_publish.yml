@@ -1,0 +1,47 @@
+name: npm_publish
+
+env:
+    CI: true
+
+on:
+    push:
+        branches:
+            - main
+        tags:
+            - '!*'
+
+jobs:
+    publish:
+        name: Setup
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout
+              uses: actions/checkout@v2
+
+            # Nodeのバージョンを指定
+            - name: setup node
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 14.x
+                  registry-url: https://registry.npmjs.org
+                  scope: '@rimltempest'
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+            - name: npm installを行う
+              run: npm install
+
+            - name: npm上のバージョンを確認する
+              run: npx can-npm-publish --verbose
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_GENERATE_TOKEN }}
+
+            # トランスパイルを実行
+            - name: build
+              run: npm build
+
+            # npmに公開する
+            - name: publish
+              run: npm publish --access=public
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.NPM_GENERATE_TOKEN }}
